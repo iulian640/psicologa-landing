@@ -1,0 +1,9 @@
+# Configuración de despliegue en Netlify para este proyecto Next.js.
+# Netlify detecta Next.js automáticamente y añade su runtime
+# (@netlify/plugin-nextjs), que gestiona las páginas y la función /api/contact.
+
+[build]
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"
