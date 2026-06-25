@@ -5,6 +5,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Política de privacidad",
   description: `Política de privacidad y protección de datos de ${SITE.name}.`,
+  alternates: { canonical: "/privacidad" },
   robots: { index: false, follow: true },
 };
 

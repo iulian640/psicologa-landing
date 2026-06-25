@@ -5,6 +5,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Aviso legal",
   description: `Aviso legal de ${SITE.name}, ${SITE.role}.`,
+  alternates: { canonical: "/aviso-legal" },
   robots: { index: false, follow: true },
 };
 

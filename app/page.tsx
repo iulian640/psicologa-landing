@@ -50,12 +50,30 @@ const jsonLd = {
   url: SITE.url,
   email: SITE.email,
   telephone: `+${SITE.phoneRaw}`,
-  image: `${SITE.url}${IMAGES.aboutPortrait}`,
+  image: IMAGES.aboutPortrait,
   areaServed: "ES",
   availableLanguage: "es",
   knowsAbout: ["Ansiedad", "Autoestima", "Duelo", "Terapias contextuales", "ACT"],
-  address: { "@type": "PostalAddress", streetAddress: SITE.address, postalCode: SITE.postalCode, addressLocality: SITE.city, addressRegion: SITE.region, addressCountry: "ES" },
-  priceRange: "€€",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: SITE.address,
+    postalCode: SITE.postalCode,
+    addressLocality: SITE.city,
+    addressRegion: SITE.region,
+    addressCountry: "ES",
+  },
+  makesOffer: {
+    "@type": "Offer",
+    name: "Sesión individual de psicoterapia online",
+    price: "60",
+    priceCurrency: "EUR",
+    description: "Sesión de 60 minutos por videollamada. Precio reducido de 45 € para estudiantes y personas en situación de desempleo.",
+    offeredBy: { "@type": "Psychologist", name: SITE.name },
+  },
+  hasCredential: [
+    { "@type": "EducationalOccupationalCredential", credentialCategory: "license", name: `Psicóloga General Sanitaria, Col. ${SITE.colegiado}` },
+    { "@type": "EducationalOccupationalCredential", credentialCategory: "degree", name: "Máster en Psicología General Sanitaria" },
+  ],
 };
 
 export default function Home() {
@@ -174,12 +192,13 @@ export default function Home() {
               </div>
             </Reveal>
             <Reveal>
-              <div className="card card-photo h-full">
+              <div className="card card-photo relative h-full">
                 <Photo
                   src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=700&q=80"
                   alt="Luz cálida entre las hojas"
                 />
-                <span className="cap">A tu ritmo, sin presión</span>
+                <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                <span className="cap relative z-10 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]">A tu ritmo, sin presión</span>
               </div>
             </Reveal>
             <Reveal>
@@ -275,7 +294,7 @@ export default function Home() {
                   <div className="mt-auto flex items-center gap-3.5">
                     <span className="av"><Quotes size={18} weight="fill" /></span>
                     <div>
-                      <b className="block font-sans text-[0.95rem] font-medium text-ink">{t.name}</b>
+                      {t.name && <b className="block font-sans text-[0.95rem] font-medium text-ink">{t.name}</b>}
                       <small className="text-[0.82rem] text-muted">{t.tag}</small>
                     </div>
                   </div>
