@@ -8,6 +8,7 @@ const links = [
   { href: "#servicios", label: "Servicios" },
   { href: "#sobre", label: "Sobre mí" },
   { href: "#proceso", label: "Cómo trabajo" },
+  { href: "#sesiones", label: "Tarifas" },
   { href: "#faq", label: "Preguntas" },
   { href: "#contacto", label: "Contacto" },
 ];
@@ -89,7 +90,7 @@ export function Nav() {
       {/* menú móvil */}
       <div
         className={`overflow-hidden border-line bg-surface transition-[max-height] duration-300 lg:hidden ${
-          open ? "max-h-96 border-b" : "max-h-0"
+          open ? "max-h-[520px] border-b" : "max-h-0"
         }`}
       >
         <div className="mx-auto flex max-w-[1180px] flex-col px-4 sm:px-[26px]">

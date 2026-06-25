@@ -8,7 +8,7 @@ export const SITE = {
   name: "Clara Méndez Ruiz",
   shortName: "Clara Méndez",
   role: "Psicóloga General Sanitaria",
-  shortRole: "Psicóloga sanitaria",
+  shortRole: "Psicóloga General Sanitaria",
   colegiado: "M-00000",
   registroSanitario: "CS-00000",
   email: "hola@clara-psicologia.demo",
