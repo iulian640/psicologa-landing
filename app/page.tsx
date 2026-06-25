@@ -83,7 +83,7 @@ export default function Home() {
       <Nav />
 
       {/* HERO */}
-      <section className="pb-6 pt-16">
+      <section className="pb-6 pt-8 sm:pt-12 lg:pt-16">
         <div className="mx-auto max-w-[1180px] px-5 sm:px-[26px]">
           <div className="grid items-center gap-12 lg:grid-cols-[1.04fr_0.96fr] lg:gap-[60px]">
             <Reveal>
