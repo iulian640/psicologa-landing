@@ -3,10 +3,7 @@ import { SITE } from "@/lib/site";
 
 export const runtime = "nodejs";
 
-// Remitente verificado en Resend. Sin dominio propio puedes usar el de pruebas
-// "onboarding@resend.dev"; para producción, verifica andreagonzpsicologia.com en
-// Resend y pon algo como "Web Andrea <hola@andreagonzpsicologia.com>".
-const FROM = process.env.CONTACT_FROM_EMAIL || "Web Andrea González <onboarding@resend.dev>";
+const FROM = process.env.CONTACT_FROM_EMAIL ?? "";
 
 function escapeHtml(s: string) {
   return s.replace(/[&<>"']/g, (c) =>
@@ -15,6 +12,17 @@ function escapeHtml(s: string) {
 }
 
 export async function POST(req: Request) {
+  const origin = req.headers.get("origin");
+  const allowedOrigins = [
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://psicologa-demo.netlify.app",
+    "https://psicologa-demo.netlify.app",
+    "http://localhost:3000",
+    "http://localhost:3001",
+  ];
+  if (origin && !allowedOrigins.includes(origin)) {
+    return NextResponse.json({ error: "No autorizado." }, { status: 403 });
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await req.json();
@@ -44,8 +52,8 @@ export async function POST(req: Request) {
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL || SITE.email;
-  if (!apiKey) {
-    console.error("Falta RESEND_API_KEY en el entorno (.env.local).");
+  if (!apiKey || !FROM) {
+    console.error("Faltan variables de entorno: RESEND_API_KEY o CONTACT_FROM_EMAIL.");
     return NextResponse.json({ error: "El formulario no está configurado todavía." }, { status: 500 });
   }
 
