@@ -4,11 +4,10 @@ A fast, accessible landing page for an online psychology practice, built to turn
 visitors into booked first sessions. Warm wellness design, a real serverless contact
 flow, GDPR-compliant legal pages and SEO with structured data.
 
-🔗 **Live demo:** https://psicologa-demo.netlify.app
+🔗 **Live demo:** https://psicologialanding.netlify.app
 
 > **Note:** This is a sanitized public showcase of a real client project. All names,
-> contact details, photos and testimonials here are placeholder/demo data, and the
-> contact form runs in demo mode (no real emails are sent).
+> contact details, photos and testimonials are placeholder/demo data.
 
 ---
 
@@ -16,13 +15,16 @@ flow, GDPR-compliant legal pages and SEO with structured data.
 
 - **Single source of content** — every text, price, credential and FAQ lives in
   [`lib/site.ts`](lib/site.ts), so the whole site is editable without touching markup.
-- **Serverless contact form** — posts to a Next.js Route Handler that sends the email
+- **Serverless contact form** — posts to a Next.js Route Handler that sends email
   via the [Resend](https://resend.com) API. The API key stays server-side only.
-- **Spam protection & validation** — hidden honeypot field, server-side validation and
-  graceful error handling.
+- **Spam protection & CSRF** — hidden honeypot field, server-side origin validation,
+  and graceful error handling.
 - **GDPR ready** — consent checkbox, plus `/aviso-legal` and `/privacidad` pages
   (Spanish LOPDGDD / RGPD).
-- **SEO** — full metadata, Open Graph/Twitter cards and JSON-LD (`Psychologist` schema).
+- **SEO** — full metadata, Open Graph / Twitter cards, JSON-LD (`Psychologist` schema
+  with `makesOffer` and `hasCredential`), sitemap and robots.txt.
+- **Security headers** — CSP, X-Frame-Options, Referrer-Policy, Permissions-Policy
+  set in `next.config.ts`.
 - **Accessible & polished** — semantic HTML, keyboard-friendly nav, scroll-reveal
   animations that respect `prefers-reduced-motion`, and an image component with a
   branded gradient fallback.
@@ -57,11 +59,13 @@ npm run dev
 # http://localhost:3000
 ```
 
-To enable real email sending, copy `.env.example` to `.env.local` and set your keys:
+Copy `.env.example` to `.env.local` and fill in your values to enable email sending:
 
 ```bash
 RESEND_API_KEY=your_key_here
+CONTACT_FROM_EMAIL="Your Name <you@yourdomain.com>"
 CONTACT_TO_EMAIL=destination@example.com
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
 ## Project structure
@@ -73,11 +77,15 @@ app/
   privacidad/            # privacy policy (GDPR)
   layout.tsx             # metadata + fonts
   page.tsx               # the landing page
-components/               # Nav, ContactForm, Photo, Reveal, ...
+  sitemap.ts             # auto-generated sitemap.xml
+  robots.ts              # auto-generated robots.txt
+components/              # Nav, ContactForm, Photo, Reveal, ...
 lib/site.ts              # ← all editable content lives here
+public/og.jpg            # static Open Graph image (1200×630)
+next.config.ts           # security headers + image domains
 ```
 
 ---
 
-<sub>Construido con Next.js, TypeScript y Tailwind. Diseño y desarrollo de la web de una
-psicóloga sanitaria para captación de pacientes (versión demo con datos ficticios).</sub>
+<sub>Built with Next.js, TypeScript and Tailwind. Design and development of a landing page
+for a licensed psychologist — demo version with placeholder data.</sub>
