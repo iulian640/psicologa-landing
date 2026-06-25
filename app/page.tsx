@@ -4,7 +4,6 @@ import {
   Flower,
   ArrowsClockwise,
   Heartbeat,
-  Star,
   Check,
   Plus,
   Envelope,
@@ -33,15 +32,6 @@ import {
   FAQS,
 } from "@/lib/site";
 
-const Stars = () => (
-  <span className="flex gap-0.5 text-clay">
-    {Array.from({ length: 5 }).map((_, i) => (
-      <Star key={i} size={16} weight="fill" />
-    ))}
-  </span>
-);
-
-// Datos estructurados para buscadores (SEO).
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Psychologist",
@@ -76,11 +66,23 @@ const jsonLd = {
   ],
 };
 
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
 export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Nav />
+      <main id="main-content">
 
       {/* HERO */}
       <section className="pb-6 pt-8 sm:pt-12 lg:pt-16">
@@ -97,7 +99,7 @@ export default function Home() {
               <div className="flex flex-wrap gap-3.5">
                 <a href="#contacto" className="btn btn-primary">Reservar sesión</a>
                 <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-wa">
-                  <WhatsappLogo size={18} weight="fill" /> WhatsApp
+                  <WhatsappLogo size={18} weight="fill" aria-hidden={true} /> WhatsApp
                 </a>
               </div>
             </Reveal>
@@ -132,11 +134,11 @@ export default function Home() {
       </div>
 
       {/* EMPATHY */}
-      <section className="bg-surface py-[72px] md:py-[108px]">
+      <section className="bg-surface py-[72px] md:py-[108px]" aria-labelledby="empathy-heading">
         <div className="mx-auto max-w-[1180px] px-5 sm:px-[26px]">
           <div className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
             <Reveal>
-              <h2 className="mb-5 text-[clamp(2.1rem,3.9vw,3rem)]">
+              <h2 id="empathy-heading" className="mb-5 text-[clamp(2.1rem,3.9vw,3rem)]">
                 No estás exagerando. <em className="italic text-claydeep">Lo que sientes es real.</em>
               </h2>
               <p className="mb-4 text-[1.08rem] text-muted">
@@ -154,7 +156,7 @@ export default function Home() {
                 { Icon: UserCircle, text: "Te exiges muchísimo y casi nunca te sientes suficiente." },
               ].map(({ Icon, text }) => (
                 <div key={text} className="emp-item">
-                  <span className="ei"><Icon size={20} /></span>
+                  <span className="ei"><Icon size={20} aria-hidden={true} /></span>
                   <p className="text-[1rem] text-inksoft">{text}</p>
                 </div>
               ))}
@@ -177,7 +179,7 @@ export default function Home() {
           <div className="grid auto-rows-fr gap-[18px] md:grid-cols-3">
             <Reveal className="md:col-span-2">
               <div className="card card-dark h-full">
-                <span className="card-ico"><Wind size={24} /></span>
+                <span className="card-ico"><Wind size={24} aria-hidden={true} /></span>
                 <h3 className="mb-2.5 text-[1.5rem]">Ansiedad y estrés</h3>
                 <p className="text-[0.98rem]">
                   Aprende a reconocer lo que te activa y a recuperar la calma con herramientas que funcionan en tu día a día, no solo en la sesión.
@@ -186,7 +188,7 @@ export default function Home() {
             </Reveal>
             <Reveal>
               <div className="card h-full">
-                <span className="card-ico"><UserCircle size={22} /></span>
+                <span className="card-ico"><UserCircle size={22} aria-hidden={true} /></span>
                 <h3 className="mb-2.5 text-[1.5rem]">Autoestima</h3>
                 <p className="text-[0.98rem] text-muted">Reconstruye una relación más amable contigo mismo.</p>
               </div>
@@ -203,14 +205,14 @@ export default function Home() {
             </Reveal>
             <Reveal>
               <div className="card h-full">
-                <span className="card-ico"><Flower size={22} /></span>
+                <span className="card-ico"><Flower size={22} aria-hidden={true} /></span>
                 <h3 className="mb-2.5 text-[1.5rem]">Duelo y pérdidas</h3>
                 <p className="text-[0.98rem] text-muted">Un acompañamiento respetuoso para transitar el dolor a tu tiempo.</p>
               </div>
             </Reveal>
             <Reveal>
               <div className="card h-full">
-                <span className="card-ico"><ArrowsClockwise size={22} /></span>
+                <span className="card-ico"><ArrowsClockwise size={22} aria-hidden={true} /></span>
                 <h3 className="mb-2.5 text-[1.5rem]">Cambios vitales</h3>
                 <p className="text-[0.98rem] text-muted">Decisiones difíciles y etapas nuevas: ordenamos juntos lo que sientes.</p>
               </div>
@@ -243,7 +245,7 @@ export default function Home() {
               </p>
               <div className="mt-6 flex flex-wrap gap-2.5">
                 {CREDENTIALS.map((c) => (
-                  <span key={c} className="cred"><Check size={15} weight="bold" /> {c}</span>
+                  <span key={c} className="cred"><Check size={15} weight="bold" aria-hidden={true} /> {c}</span>
                 ))}
               </div>
             </Reveal>
@@ -275,10 +277,10 @@ export default function Home() {
       </section>
 
       {/* TESTIMONIOS */}
-      <section className="bg-surface py-[72px] md:py-[108px]">
+      <section id="testimonios" className="bg-surface py-[72px] md:py-[108px]" aria-labelledby="testimonios-heading">
         <div className="mx-auto max-w-[1180px] px-5 sm:px-[26px]">
           <Reveal className="mx-auto mb-14 max-w-[38em] text-center">
-            <h2 className="mb-4.5 text-[clamp(2.1rem,3.9vw,3.1rem)]">Lo que cuentan quienes han dado el paso</h2>
+            <h2 id="testimonios-heading" className="mb-4.5 text-[clamp(2.1rem,3.9vw,3.1rem)]">Lo que cuentan quienes han dado el paso</h2>
             <p className="text-[1.08rem] text-muted">
               Opiniones de quienes han confiado en este espacio. Se muestran de forma anónima para proteger su privacidad.
             </p>
@@ -287,12 +289,11 @@ export default function Home() {
             {TESTIMONIALS.map((t, i) => (
               <Reveal key={i} delay={i * 0.08}>
                 <div className="quote h-full">
-                  <div className="mb-4"><Stars /></div>
                   <blockquote className="mb-5.5 font-serif text-[1.18rem] leading-[1.5] text-ink">
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
                   <div className="mt-auto flex items-center gap-3.5">
-                    <span className="av"><Quotes size={18} weight="fill" /></span>
+                    <span className="av"><Quotes size={18} weight="fill" aria-hidden={true} /></span>
                     <div>
                       {t.name && <b className="block font-sans text-[0.95rem] font-medium text-ink">{t.name}</b>}
                       <small className="text-[0.82rem] text-muted">{t.tag}</small>
@@ -317,7 +318,7 @@ export default function Home() {
               <details key={f.q} className="faq">
                 <summary>
                   {f.q}
-                  <span className="pm"><Plus size={14} weight="bold" /></span>
+                  <span className="pm"><Plus size={14} weight="bold" aria-hidden={true} /></span>
                 </summary>
                 <div className="ans">{f.a}</div>
               </details>
@@ -342,7 +343,7 @@ export default function Home() {
                 <div className="price">{PRICING.price}<small> {PRICING.unit}</small></div>
                 <ul className="mt-4.5 grid gap-2.5">
                   {PRICING.items.map((it) => (
-                    <li key={it}><Check size={16} weight="bold" className="mt-1 shrink-0 text-sagedeep" /> {it}</li>
+                    <li key={it}><Check size={16} weight="bold" className="mt-1 shrink-0 text-sagedeep" aria-hidden={true} /> {it}</li>
                   ))}
                 </ul>
                 <p className="mt-5 rounded-xl bg-sagesoft px-4 py-3 text-[0.9rem] text-sagedeep">
@@ -359,7 +360,7 @@ export default function Home() {
                   { Icon: ShieldCheck, t: "Confidencial y basada en evidencia", d: "Secreto profesional garantizado y enfoque contrastado." },
                 ].map(({ Icon, t, d }) => (
                   <div key={t} className="emp-item">
-                    <span className="ei"><Icon size={20} /></span>
+                    <span className="ei"><Icon size={20} aria-hidden={true} /></span>
                     <div>
                       <b className="block font-sans text-[0.98rem] font-medium text-ink">{t}</b>
                       <span className="text-[0.92rem] text-muted">{d}</span>
@@ -385,15 +386,15 @@ export default function Home() {
               </p>
               <div className="grid gap-4">
                 <div className="flex items-center gap-3.5 text-[1rem]">
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/12"><Envelope size={20} /></span>
-                  {SITE.email}
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/12"><Envelope size={20} aria-hidden={true} /></span>
+                  <a href={`mailto:${SITE.email}`} className="hover:underline">{SITE.email}</a>
                 </div>
                 <div className="flex items-center gap-3.5 text-[1rem]">
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/12"><Phone size={20} /></span>
-                  {SITE.phoneDisplay}
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/12"><Phone size={20} aria-hidden={true} /></span>
+                  <a href={`tel:+${SITE.phoneRaw}`} className="hover:underline">{SITE.phoneDisplay}</a>
                 </div>
                 <div className="flex items-center gap-3.5 text-[1rem]">
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/12"><Globe size={20} /></span>
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/12"><Globe size={20} aria-hidden={true} /></span>
                   Sesiones online en toda España
                 </div>
               </div>
@@ -422,7 +423,7 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <h4 className="mb-4 font-sans text-[0.76rem] uppercase tracking-[0.14em] text-[#d6cfc2]/50">Navegación</h4>
+              <h4 className="mb-4 font-sans text-[0.76rem] uppercase tracking-[0.14em] text-[#9b9488]">Navegación</h4>
               <ul className="grid gap-2.5">
                 <li><a href="#servicios" className="text-[0.95rem] text-[#d6cfc2]/85 hover:text-white">Servicios</a></li>
                 <li><a href="#sobre" className="text-[0.95rem] text-[#d6cfc2]/85 hover:text-white">Sobre mí</a></li>
@@ -431,7 +432,7 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="mb-4 font-sans text-[0.76rem] uppercase tracking-[0.14em] text-[#d6cfc2]/50">Contacto</h4>
+              <h4 className="mb-4 font-sans text-[0.76rem] uppercase tracking-[0.14em] text-[#9b9488]">Contacto</h4>
               <ul className="grid gap-2.5">
                 <li><a href={`mailto:${SITE.email}`} className="text-[0.95rem] text-[#d6cfc2]/85 hover:text-white">{SITE.email}</a></li>
                 <li><a href={WHATSAPP_URL} className="text-[0.95rem] text-[#d6cfc2]/85 hover:text-white">{SITE.phoneDisplay}</a></li>
@@ -439,7 +440,7 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="flex flex-wrap justify-between gap-2.5 border-t border-[#d6cfc2]/15 pt-6 text-[0.82rem] text-[#d6cfc2]/55">
+          <div className="flex flex-wrap justify-between gap-2.5 border-t border-[#d6cfc2]/15 pt-6 text-[0.82rem] text-[#a39d94]">
             <span>&copy; 2026 {SITE.name} · {SITE.role}, Col. {SITE.colegiado} · Reg. sanitario {SITE.registroSanitario}</span>
             <span className="flex gap-3">
               <a href="/aviso-legal" className="hover:text-white">Aviso legal</a>
@@ -449,6 +450,7 @@ export default function Home() {
         </div>
       </footer>
 
+      </main>
       <WhatsappFloat />
     </>
   );

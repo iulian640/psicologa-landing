@@ -21,13 +21,17 @@ flow, GDPR-compliant legal pages and SEO with structured data.
   and graceful error handling.
 - **GDPR ready** — consent checkbox, plus `/aviso-legal` and `/privacidad` pages
   (Spanish LOPDGDD / RGPD).
-- **SEO** — full metadata, Open Graph / Twitter cards, JSON-LD (`Psychologist` schema
-  with `makesOffer` and `hasCredential`), sitemap and robots.txt.
+- **SEO** — full metadata, Open Graph / Twitter cards, dual JSON-LD schemas
+  (`Psychologist` + `FAQPage`), absolute canonical URL, static sitemap `lastModified`,
+  and robots.txt.
 - **Security headers** — CSP, X-Frame-Options, Referrer-Policy, Permissions-Policy
   set in `next.config.ts`.
-- **Accessible & polished** — semantic HTML, keyboard-friendly nav, scroll-reveal
-  animations that respect `prefers-reduced-motion`, and an image component with a
-  branded gradient fallback.
+- **WCAG 2.2 AA accessible** — `<main>` landmark with skip link, mobile nav uses
+  `aria-expanded` + `inert` to remove hidden links from tab order, form success/error
+  states announced via `aria-live` regions, all decorative icons marked
+  `aria-hidden`, email and phone rendered as native links, `:focus-visible` ring on
+  every interactive element, `--color-muted` and footer colours meet 4.5:1 contrast,
+  and all hover/transform animations suppressed under `prefers-reduced-motion`.
 - **Responsive** — mobile-first layout with a collapsible nav.
 
 ## Tech stack

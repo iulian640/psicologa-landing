@@ -28,19 +28,8 @@ export const metadata: Metadata = {
     template: `%s · ${SITE.shortName}`,
   },
   description,
-  keywords: [
-    "psicóloga online",
-    "terapia online",
-    "psicóloga general sanitaria",
-    "ansiedad",
-    "autoestima",
-    "terapias contextuales",
-    "ACT",
-    "Asturias",
-    SITE.name,
-  ],
   authors: [{ name: SITE.name }],
-  alternates: { canonical: "/" },
+  alternates: { canonical: SITE.url },
   openGraph: {
     type: "website",
     locale: "es_ES",
@@ -64,7 +53,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={`${serif.variable} ${sans.variable}`}>
       <body>
-        <div className="grain" aria-hidden />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-xl focus:bg-ink focus:px-4 focus:py-2 focus:text-white focus:outline focus:outline-2 focus:outline-claydeep"
+        >
+          Saltar al contenido principal
+        </a>
+        <div className="grain" aria-hidden={true} />
         {children}
       </body>
     </html>

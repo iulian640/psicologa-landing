@@ -30,7 +30,7 @@ export function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="rounded-[36px] bg-surface p-[38px] text-ink">
+      <div role="status" aria-live="polite" className="rounded-[36px] bg-surface p-[38px] text-ink">
         <h3 className="mb-2 text-[1.6rem]">¡Mensaje recibido!</h3>
         <p className="text-[1rem] text-muted">
           Gracias por escribir. Te responderé personalmente lo antes posible al contacto que me has dejado. Si lo prefieres, también puedes escribirme directamente por WhatsApp.
@@ -42,7 +42,8 @@ export function ContactForm() {
   return (
     <form className="rounded-[36px] bg-surface p-[38px] text-ink" onSubmit={handleSubmit}>
       <h3 className="mb-1.5 text-[1.6rem]">Reserva tu sesión</h3>
-      <p className="mb-6 text-[0.94rem] text-muted">Cuéntame un poco sobre ti y te contacto enseguida.</p>
+      <p className="mb-1.5 text-[0.94rem] text-muted">Cuéntame un poco sobre ti y te contacto enseguida.</p>
+      <p className="mb-6 text-[0.78rem] text-muted">Los campos marcados con <span aria-hidden="true" className="text-claydeep">*</span> son obligatorios.</p>
 
       {/* Honeypot anti-spam: oculto para personas, los bots tienden a rellenarlo. */}
       <div className="absolute left-[-9999px]" aria-hidden="true">
@@ -51,12 +52,12 @@ export function ContactForm() {
       </div>
 
       <div className="field mb-[17px]">
-        <label htmlFor="nombre">Nombre</label>
-        <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required />
+        <label htmlFor="nombre">Nombre <span aria-hidden="true" className="text-claydeep">*</span></label>
+        <input id="nombre" name="nombre" type="text" autoComplete="name" placeholder="Tu nombre" required />
       </div>
       <div className="field mb-[17px]">
-        <label htmlFor="contacto">Email o teléfono</label>
-        <input id="contacto" name="contacto" type="text" placeholder="Para poder responderte" required />
+        <label htmlFor="contacto">Email o teléfono <span aria-hidden="true" className="text-claydeep">*</span></label>
+        <input id="contacto" name="contacto" type="text" autoComplete="email" placeholder="Para poder responderte" required />
       </div>
       <div className="field mb-[17px]">
         <label htmlFor="motivo">¿En qué te gustaría trabajar?</label>
@@ -89,7 +90,7 @@ export function ContactForm() {
       </button>
 
       {status === "error" ? (
-        <p className="mt-3.5 text-center text-[0.8rem] text-claydeep">{errorMsg}</p>
+        <p role="alert" aria-live="assertive" className="mt-3.5 text-center text-[0.8rem] text-claydeep">{errorMsg}</p>
       ) : (
         <p className="mt-3.5 text-center text-[0.78rem] text-muted">
           Tus datos son confidenciales y solo se usan para responderte.

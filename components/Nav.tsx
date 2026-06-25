@@ -80,15 +80,20 @@ export function Nav() {
           <button
             className="grid h-[42px] w-[42px] place-items-center text-ink lg:hidden"
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={open}
+            aria-controls="mobile-nav-drawer"
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? <X size={26} /> : <List size={26} />}
+            {open ? <X size={26} aria-hidden="true" /> : <List size={26} aria-hidden="true" />}
           </button>
         </div>
       </div>
 
       {/* menú móvil */}
-      <div
+      <nav
+        id="mobile-nav-drawer"
+        aria-label="Menú principal"
+        inert={!open || undefined}
         className={`overflow-hidden border-line bg-surface transition-[max-height] duration-300 lg:hidden ${
           open ? "max-h-[520px] border-b" : "max-h-0"
         }`}
@@ -112,7 +117,7 @@ export function Nav() {
             Reservar sesión
           </a>
         </div>
-      </div>
+      </nav>
     </header>
   );
 }
